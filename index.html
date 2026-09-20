@@ -1,1 +1,230 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <meta name="description" content="Tienda de aplicaciones gratuitas.">
+  <title>CristonioCell | Aplicaciones gratis</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080808;
+      --panel: #111111;
+      --panel-soft: #171717;
+      --border: #292929;
+      --text: #f5f5f5;
+      --muted: #9b9b9b;
+      --accent: #ffffff;
+      --accent-text: #080808;
+      --danger: #ff6b6b;
+    }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { width: min(1180px, calc(100% - 32px)); margin: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(8, 8, 8, .88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.02em; }
+    .brand-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 10px; background: var(--accent); color: var(--accent-text); font-size: 18px; }
+    .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      border: 1px solid var(--border); border-radius: 9px; padding: 10px 15px;
+      background: var(--panel); color: var(--text); transition: .2s ease;
+    }
+    .btn:hover { border-color: #5a5a5a; transform: translateY(-1px); }
+    .btn-primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 700; }
+
+    .hero { padding: 84px 0 48px; text-align: center; }
+    .eyebrow { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 780px; margin: 14px auto 16px; font-size: clamp(2.4rem, 6vw, 5rem); line-height: .98; letter-spacing: -.065em; }
+    .hero p { max-width: 570px; margin: 0 auto 30px; color: var(--muted); line-height: 1.65; }
+    .search { max-width: 650px; margin: 0 auto; position: relative; }
+    .search input { width: 100%; padding: 16px 18px 16px 48px; border: 1px solid var(--border); border-radius: 12px; outline: 0; background: var(--panel); color: var(--text); }
+    .search input:focus { border-color: #777; }
+    .search-icon { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin: 16px 0 26px; }
+    .filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+    .filter { white-space: nowrap; padding: 8px 13px; border: 1px solid var(--border); border-radius: 99px; background: transparent; color: var(--muted); }
+    .filter.active, .filter:hover { color: var(--accent-text); background: var(--accent); border-color: var(--accent); }
+    select { border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px; background: var(--panel); color: var(--text); }
+
+    .section-title { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 15px; }
+    h2 { margin: 0; font-size: 1.35rem; letter-spacing: -.03em; }
+    .count { color: var(--muted); font-size: 13px; }
+    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; min-height: 180px; }
+    .app-card { padding: 18px; border: 1px solid var(--border); border-radius: 14px; background: var(--panel); }
+    .app-icon { width: 54px; height: 54px; border-radius: 13px; object-fit: cover; background: var(--panel-soft); }
+    .app-card h3 { margin: 14px 0 5px; }
+    .app-card p { margin: 0 0 16px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .app-meta { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 12px; }
+    .empty { grid-column: 1 / -1; padding: 45px 20px; border: 1px dashed #3b3b3b; border-radius: 14px; text-align: center; }
+    .empty-icon { font-size: 32px; margin-bottom: 10px; }
+    .empty h3 { margin: 0 0 7px; }
+    .empty p { max-width: 500px; margin: auto; color: var(--muted); line-height: 1.55; }
+
+    .how { margin: 76px 0; padding: 28px; border: 1px solid var(--border); border-radius: 16px; background: linear-gradient(135deg, #151515, #0d0d0d); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 22px; }
+    .step-number { color: var(--muted); font-size: 12px; }
+    .step h3 { margin: 8px 0 5px; font-size: 1rem; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    footer { border-top: 1px solid var(--border); padding: 25px 0; color: var(--muted); font-size: 13px; }
+    .notice { display: none; margin: 18px 0; padding: 13px; border: 1px solid var(--danger); color: #ffb4b4; border-radius: 9px; }
+
+    @media (max-width: 700px) {
+      .nav-links a:not(.btn) { display: none; }
+      .hero { padding-top: 60px; }
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .steps { grid-template-columns: 1fr; }
+      .how { margin: 55px 0; padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav container" aria-label="Navegación principal">
+      <a class="brand" href="#inicio"><span class="brand-mark">C</span><span>CristonioCell</span></a>
+      <div class="nav-links">
+        <a href="#aplicaciones">Aplicaciones</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a class="btn btn-primary" href="#publicar">Publicar aplicación</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="inicio" class="container">
+    <section class="hero">
+      <div class="eyebrow">Tienda independiente · 100% gratis</div>
+      <h1>Descubre aplicaciones hechas para ti.</h1>
+      <p>Un espacio sencillo para encontrar y descargar tus aplicaciones gratuitas. El catálogo aparecerá aquí cuando publiques tus primeras aplicaciones.</p>
+      <div class="search">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="Buscar aplicaciones..." aria-label="Buscar aplicaciones">
+      </div>
+    </section>
+
+    <section id="aplicaciones" aria-labelledby="apps-title">
+      <div class="toolbar">
+        <div class="filters" role="group" aria-label="Filtrar por categoría">
+          <button class="filter active" data-category="Todas">Todas</button>
+          <button class="filter" data-category="Android">Android</button>
+          <button class="filter" data-category="Windows">Windows</button>
+          <button class="filter" data-category="Linux">Linux</button>
+          <button class="filter" data-category="Herramientas">Herramientas</button>
+        </div>
+        <select id="sortSelect" aria-label="Ordenar aplicaciones">
+          <option value="recent">Más recientes</option>
+          <option value="name">Nombre</option>
+        </select>
+      </div>
+      <div class="section-title">
+        <h2 id="apps-title">Aplicaciones disponibles</h2>
+        <span class="count" id="appCount">0 aplicaciones</span>
+      </div>
+      <div id="appsGrid" class="apps-grid"></div>
+      <div id="errorMessage" class="notice" role="alert"></div>
+    </section>
+
+    <section id="como-funciona" class="how">
+      <div class="eyebrow">Catálogo transparente</div>
+      <h2>¿Cómo funcionará?</h2>
+      <div class="steps">
+        <div class="step"><div class="step-number">01</div><h3>Publica</h3><p>Añade los datos, la imagen y el enlace real de descarga de tu aplicación.</p></div>
+        <div class="step"><div class="step-number">02</div><h3>Revisa</h3><p>Comprueba que la información y los enlaces funcionen correctamente antes de compartirlos.</p></div>
+        <div class="step"><div class="step-number">03</div><h3>Descarga</h3><p>Los visitantes podrán consultar cada aplicación y descargarla desde su fuente oficial.</p></div>
+      </div>
+    </section>
+
+    <section id="publicar" class="how">
+      <div class="eyebrow">Próximo paso</div>
+      <h2>Tu catálogo empieza aquí</h2>
+      <p style="color: var(--muted); line-height: 1.6; max-width: 650px;">Para añadir aplicaciones, edita la constante <strong style="color:var(--text)">APLICACIONES</strong> dentro de este archivo y agrega únicamente aplicaciones reales y sus enlaces oficiales. La página está vacía intencionadamente: no contiene aplicaciones ficticias.</p>
+    </section>
+  </main>
+
+  <footer><div class="container">© <span id="year"></span> CristonioCell · Aplicaciones gratuitas</div></footer>
+
+  <script>
+    /*
+      Añade aquí tus aplicaciones reales cuando quieras publicarlas.
+      Ejemplo de estructura (no es una aplicación y no se muestra):
+      {
+        nombre: "Nombre real",
+        descripcion: "Descripción real",
+        categoria: "Android",
+        version: "1.0.0",
+        fecha: "2026-01-01",
+        imagen: "ruta/a/icono.png",
+        descarga: "https://enlace-oficial-de-descarga"
+      }
+    */
+    const APLICACIONES = [];
+    let categoriaActual = 'Todas';
+
+    const grid = document.getElementById('appsGrid');
+    const count = document.getElementById('appCount');
+    const search = document.getElementById('searchInput');
+    const sort = document.getElementById('sortSelect');
+
+    function escapar(texto) {
+      const div = document.createElement('div');
+      div.textContent = texto ?? '';
+      return div.innerHTML;
+    }
+
+    function renderizar() {
+      const termino = search.value.trim().toLowerCase();
+      let lista = APLICACIONES.filter(app => {
+        const coincideCategoria = categoriaActual === 'Todas' || app.categoria === categoriaActual;
+        const coincideBusqueda = `${app.nombre} ${app.descripcion} ${app.categoria}`.toLowerCase().includes(termino);
+        return coincideCategoria && coincideBusqueda;
+      });
+
+      if (sort.value === 'name') lista.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      else lista.sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0));
+
+      count.textContent = `${lista.length} ${lista.length === 1 ? 'aplicación' : 'aplicaciones'}`;
+      if (!lista.length) {
+        grid.innerHTML = `<div class="empty"><div class="empty-icon">✦</div><h3>${termino ? 'No se encontraron aplicaciones' : 'Todavía no hay aplicaciones'}</h3><p>${termino ? 'Prueba con otro término de búsqueda.' : 'El catálogo está listo. Añade tus aplicaciones reales en la constante APLICACIONES para que aparezcan aquí.'}</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = lista.map(app => `
+        <article class="app-card">
+          ${app.imagen ? `<img class="app-icon" src="${escapar(app.imagen)}" alt="Icono de ${escapar(app.nombre)}">` : '<div class="app-icon" aria-hidden="true"></div>'}
+          <h3>${escapar(app.nombre)}</h3>
+          <p>${escapar(app.descripcion)}</p>
+          <div class="app-meta"><span>${escapar(app.categoria)} · v${escapar(app.version || '1.0')}</span><a class="btn" href="${escapar(app.descarga)}" target="_blank" rel="noopener">Descargar</a></div>
+        </article>`).join('');
+    }
+
+    document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
+      document.querySelector('.filter.active').classList.remove('active');
+      button.classList.add('active');
+      categoriaActual = button.dataset.category;
+      renderizar();
+    }));
+    search.addEventListener('input', renderizar);
+    sort.addEventListener('change', renderizar);
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderizar();
+  </script>
+</body>
+</html>
