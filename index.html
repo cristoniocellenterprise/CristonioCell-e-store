@@ -1,8 +1,976 @@
-<html>
-    <head>
-        <title>Hola mundo</title>
-    </head>
-    <body>
-        <a href="file://192.168.1.31/master_index/FOR-ASC-SGC-004%20%20MASTER%20INDEX.xls">FOR-ASC-SGC-MASTER INDEX.xls</a>
-    </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CristonioCell e-shop</title>
+
+  <style>
+    :root {
+      --primary: #6c4cff;
+      --primary-dark: #4c31c9;
+      --background: #f5f6fa;
+      --card: #ffffff;
+      --text: #202124;
+      --muted: #70757a;
+      --border: #e5e7eb;
+      --danger: #d93025;
+      --success: #188038;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary);
+      font-size: 1.35rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), #a78bfa);
+      font-size: 1.25rem;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 12px 18px 12px 44px;
+      outline: none;
+      background: #fafafa;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      background: white;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 17px;
+      top: 11px;
+      color: var(--muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-button {
+      background: #f0edff;
+      color: var(--primary);
+      padding: 10px 13px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      background: var(--danger);
+      color: white;
+      font-size: 0.7rem;
+      min-width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 35px 24px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #302080, #7956f6);
+      color: white;
+      border-radius: 24px;
+      padding: 45px;
+      min-height: 260px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      color: #e6e1ff;
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    .hero-decoration {
+      font-size: 8rem;
+      opacity: 0.3;
+      transform: rotate(-12deg);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin: 30px 0 18px;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+
+    .category-button {
+      padding: 10px 17px;
+      border-radius: 20px;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .category-button.active,
+    .category-button:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(46, 36, 100, 0.12);
+    }
+
+    .product-image {
+      height: 170px;
+      width: 100%;
+      object-fit: cover;
+      background: #eeeaff;
+    }
+
+    .product-info {
+      padding: 16px;
+    }
+
+    .product-category {
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .product-name {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .product-description {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      min-height: 40px;
+      margin-bottom: 15px;
+    }
+
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 1.15rem;
+    }
+
+    .add-button,
+    .primary-button {
+      background: var(--primary);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 9px;
+    }
+
+    .add-button:hover,
+    .primary-button:hover {
+      background: var(--primary-dark);
+    }
+
+    .empty-message {
+      background: white;
+      padding: 35px;
+      border-radius: 15px;
+      text-align: center;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      background: #21184d;
+      color: white;
+      text-align: center;
+      padding: 28px;
+      margin-top: 30px;
+    }
+
+    .modal-background {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-background.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(650px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-button {
+      background: transparent;
+      font-size: 1.5rem;
+      color: var(--muted);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .admin-list {
+      margin-top: 25px;
+    }
+
+    .admin-product {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+
+    .admin-product img {
+      width: 55px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .admin-product-info {
+      flex: 1;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .edit-button {
+      background: #e8f0fe;
+      color: #1967d2;
+      padding: 8px 10px;
+      border-radius: 7px;
+    }
+
+    .delete-button {
+      background: #fce8e6;
+      color: var(--danger);
+      padding: 8px 10px;
+      border-radius: 7px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+
+    .cart-item small {
+      color: var(--muted);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 22px;
+    }
+
+    .notice {
+      margin-top: 14px;
+      color: var(--success);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 750px) {
+      .navbar {
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+      }
+
+      .hero {
+        padding: 30px 24px;
+      }
+
+      .hero-decoration {
+        display: none;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .product-image {
+        height: 130px;
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+
+      .product-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .brand {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="brand">
+        <div class="brand-icon">📱</div>
+        <span>CristonioCell e-shop</span>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Buscar aplicaciones, juegos o productos..."
+        >
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-button" onclick="openCart()" title="Carrito">
+          🛒
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+
+        <button class="icon-button" onclick="openAdmin()" title="Administrar">
+          ⚙️
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Todo para tu mundo digital</h1>
+        <p>
+          Descubre aplicaciones, accesorios y productos tecnológicos
+          seleccionados por CristonioCell.
+        </p>
+      </div>
+
+      <div class="hero-decoration">📲</div>
+    </section>
+
+    <div class="section-header">
+      <h2>Categorías</h2>
+    </div>
+
+    <div class="categories" id="categories"></div>
+
+    <div class="section-header">
+      <h2>Productos destacados</h2>
+      <span id="productCounter"></span>
+    </div>
+
+    <section class="products-grid" id="productsGrid"></section>
+  </main>
+
+  <footer>
+    <p>© 2026 CristonioCell e-shop. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Modal del carrito -->
+  <div class="modal-background" id="cartModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>🛒 Mi carrito</h2>
+        <button class="close-button" onclick="closeModal('cartModal')">×</button>
+      </div>
+
+      <div id="cartItems"></div>
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+
+      <button class="primary-button" style="width:100%; margin-top:20px;" onclick="checkout()">
+        Finalizar pedido
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de administración -->
+  <div class="modal-background" id="adminModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>⚙️ Administrar tienda</h2>
+        <button class="close-button" onclick="closeModal('adminModal')">×</button>
+      </div>
+
+      <form id="productForm">
+        <input type="hidden" id="productId">
+
+        <div class="form-group">
+          <label for="productName">Nombre del producto</label>
+          <input id="productName" required placeholder="Ejemplo: Cargador rápido">
+        </div>
+
+        <div class="form-group">
+          <label for="productCategory">Categoría</label>
+          <select id="productCategory">
+            <option value="Aplicaciones">Aplicaciones</option>
+            <option value="Juegos">Juegos</option>
+            <option value="Accesorios">Accesorios</option>
+            <option value="Telefonía">Telefonía</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="productPrice">Precio</label>
+          <input id="productPrice" type="number" min="0" step="0.01" required placeholder="19.99">
+        </div>
+
+        <div class="form-group">
+          <label for="productImage">URL de la imagen</label>
+          <input
+            id="productImage"
+            type="url"
+            required
+            placeholder="https://..."
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="productDescription">Descripción</label>
+          <input id="productDescription" required placeholder="Descripción corta del producto">
+        </div>
+
+        <button class="primary-button" type="submit">
+          Guardar producto
+        </button>
+
+        <p class="notice">
+          Los productos se guardan en este navegador mediante localStorage.
+        </p>
+      </form>
+
+      <div class="admin-list">
+        <h3>Productos existentes</h3>
+        <div id="adminProductList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const defaultProducts = [
+      {
+        id: 1,
+        name: "Cargador rápido USB-C",
+        category: "Accesorios",
+        price: 19.99,
+        image: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80",
+        description: "Carga rápida y segura para tus dispositivos."
+      },
+      {
+        id: 2,
+        name: "Smartphone Cristonio X1",
+        category: "Telefonía",
+        price: 299.99,
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+        description: "Potencia, diseño moderno y gran cámara."
+      },
+      {
+        id: 3,
+        name: "Cristonio Music",
+        category: "Aplicaciones",
+        price: 4.99,
+        image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=600&q=80",
+        description: "Disfruta tus canciones favoritas en cualquier lugar."
+      },
+      {
+        id: 4,
+        name: "Auriculares inalámbricos",
+        category: "Accesorios",
+        price: 49.99,
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+        description: "Sonido envolvente y batería de larga duración."
+      },
+      {
+        id: 5,
+        name: "Cristonio Games",
+        category: "Juegos",
+        price: 9.99,
+        image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
+        description: "Diversión y entretenimiento para todos."
+      }
+    ];
+
+    let products = JSON.parse(localStorage.getItem("cristoniocell_products")) || defaultProducts;
+    let cart = JSON.parse(localStorage.getItem("cristoniocell_cart")) || [];
+    let selectedCategory = "Todos";
+
+    const productsGrid = document.getElementById("productsGrid");
+    const categoriesContainer = document.getElementById("categories");
+    const productCounter = document.getElementById("productCounter");
+    const searchInput = document.getElementById("searchInput");
+
+    function money(value) {
+      return new Intl.NumberFormat("es-ES", {
+        style: "currency",
+        currency: "USD"
+      }).format(value);
+    }
+
+    function saveProducts() {
+      localStorage.setItem("cristoniocell_products", JSON.stringify(products));
+    }
+
+    function saveCart() {
+      localStorage.setItem("cristoniocell_cart", JSON.stringify(cart));
+    }
+
+    function renderCategories() {
+      const categories = [
+        "Todos",
+        ...new Set(products.map(product => product.category))
+      ];
+
+      categoriesContainer.innerHTML = categories.map(category => `
+        <button
+          class="category-button ${category === selectedCategory ? "active" : ""}"
+          onclick="filterCategory('${category}')"
+        >
+          ${category}
+        </button>
+      `).join("");
+    }
+
+    function renderProducts() {
+      const search = searchInput.value.toLowerCase().trim();
+
+      const filteredProducts = products.filter(product => {
+        const matchesCategory =
+          selectedCategory === "Todos" ||
+          product.category === selectedCategory;
+
+        const matchesSearch =
+          product.name.toLowerCase().includes(search) ||
+          product.description.toLowerCase().includes(search) ||
+          product.category.toLowerCase().includes(search);
+
+        return matchesCategory && matchesSearch;
+      });
+
+      productCounter.textContent = `${filteredProducts.length} productos`;
+
+      if (!filteredProducts.length) {
+        productsGrid.innerHTML = `
+          <div class="empty-message">
+            No encontramos productos con esa búsqueda.
+          </div>
+        `;
+        return;
+      }
+
+      productsGrid.innerHTML = filteredProducts.map(product => `
+        <article class="product-card">
+          <img
+            class="product-image"
+            src="${product.image}"
+            alt="${product.name}"
+          >
+
+          <div class="product-info">
+            <div class="product-category">${product.category}</div>
+            <h3 class="product-name">${product.name}</h3>
+            <p class="product-description">${product.description}</p>
+
+            <div class="product-bottom">
+              <span class="price">${money(product.price)}</span>
+              <button class="add-button" onclick="addToCart(${product.id})">
+                Añadir
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function filterCategory(category) {
+      selectedCategory = category;
+      renderCategories();
+      renderProducts();
+    }
+
+    function addToCart(productId) {
+      const product = products.find(product => product.id === productId);
+
+      if (!product) return;
+
+      const existingProduct = cart.find(item => item.id === productId);
+
+      if (existingProduct) {
+        existingProduct.quantity++;
+      } else {
+        cart.push({
+          ...product,
+          quantity: 1
+        });
+      }
+
+      saveCart();
+      updateCartCount();
+      alert("Producto añadido al carrito.");
+    }
+
+    function updateCartCount() {
+      const count = cart.reduce((total, product) => total + product.quantity, 0);
+      document.getElementById("cartCount").textContent = count;
+    }
+
+    function openCart() {
+      renderCart();
+      document.getElementById("cartModal").classList.add("show");
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+
+      if (!cart.length) {
+        cartItems.innerHTML = `
+          <p style="color: var(--muted);">
+            Tu carrito está vacío.
+          </p>
+        `;
+        cartTotal.textContent = money(0);
+        return;
+      }
+
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div>
+            <strong>${item.name}</strong><br>
+            <small>${item.quantity} × ${money(item.price)}</small>
+          </div>
+
+          <div>
+            <strong>${money(item.price * item.quantity)}</strong>
+            <br>
+            <button
+              class="delete-button"
+              onclick="removeFromCart(${item.id})"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      `).join("");
+
+      const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+
+      cartTotal.textContent = money(total);
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      saveCart();
+      updateCartCount();
+      renderCart();
+    }
+
+    function checkout() {
+      if (!cart.length) {
+        alert("Tu carrito está vacío.");
+        return;
+      }
+
+      alert(
+        "Gracias por tu compra. Aquí puedes conectar después un sistema de pagos o WhatsApp."
+      );
+    }
+
+    function openAdmin() {
+      renderAdminProducts();
+      document.getElementById("adminModal").classList.add("show");
+    }
+
+    function renderAdminProducts() {
+      const adminList = document.getElementById("adminProductList");
+
+      adminList.innerHTML = products.map(product => `
+        <div class="admin-product">
+          <img src="${product.image}" alt="${product.name}">
+
+          <div class="admin-product-info">
+            <strong>${product.name}</strong><br>
+            <small>${product.category} · ${money(product.price)}</small>
+          </div>
+
+          <div class="admin-actions">
+            <button
+              class="edit-button"
+              onclick="editProduct(${product.id})"
+            >
+              Editar
+            </button>
+
+            <button
+              class="delete-button"
+              onclick="deleteProduct(${product.id})"
+            >
+              Borrar
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("productForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const id = document.getElementById("productId").value;
+      const productData = {
+        name: document.getElementById("productName").value,
+        category: document.getElementById("productCategory").value,
+        price: Number(document.getElementById("productPrice").value),
+        image: document.getElementById("productImage").value,
+        description: document.getElementById("productDescription").value
+      };
+
+      if (id) {
+        products = products.map(product =>
+          product.id === Number(id)
+            ? { ...product, ...productData }
+            : product
+        );
+      } else {
+        products.push({
+          id: Date.now(),
+          ...productData
+        });
+      }
+
+      saveProducts();
+      this.reset();
+      document.getElementById("productId").value = "";
+
+      renderCategories();
+      renderProducts();
+      renderAdminProducts();
+
+      alert("Producto guardado correctamente.");
+    });
+
+    function editProduct(productId) {
+      const product = products.find(product => product.id === productId);
+
+      if (!product) return;
+
+      document.getElementById("productId").value = product.id;
+      document.getElementById("productName").value = product.name;
+      document.getElementById("productCategory").value = product.category;
+      document.getElementById("productPrice").value = product.price;
+      document.getElementById("productImage").value = product.image;
+      document.getElementById("productDescription").value = product.description;
+
+      document
+        .getElementById("productForm")
+        .scrollIntoView({ behavior: "smooth" });
+    }
+
+    function deleteProduct(productId) {
+      const confirmed = confirm("¿Seguro que deseas borrar este producto?");
+
+      if (!confirmed) return;
+
+      products = products.filter(product => product.id !== productId);
+      saveProducts();
+
+      renderCategories();
+      renderProducts();
+      renderAdminProducts();
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove("show");
+    }
+
+    document.querySelectorAll(".modal-background").forEach(modal => {
+      modal.addEventListener("click", event => {
+        if (event.target === modal) {
+          modal.classList.remove("show");
+        }
+      });
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+
+    renderCategories();
+    renderProducts();
+    updateCartCount();
+  </script>
+
+</body>
 </html>
