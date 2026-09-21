@@ -1,4 +1,3 @@
-File name: minibb.jad
 Language: 
 MIDlet-Version: 4.5
 MIDlet-1: Opera Mini 4, /i.png, Browser
@@ -9,7 +8,7 @@ MIDlet-Install-Notify: http://m.opera.com/n/33868Acuemoth_es-mx?vid=0xc339d72dd8
 MIDlet-Jar-URL: http://m.opera.com/dl/G2MEQpbr9zds3yf6UHgARS5sKh0AZGVmYXVsdF8yMDEyLnBuZw==/mini.jar?vid=0xc339d72dd84b89f0
 MIDlet-Name: Opera Mini 4
 MIDlet-Permissions: javax.microedition.io.Connector.http
-MIDlet-Permissions-Opt: javax.microedition.io.Connector.sms, javax.wireless.messaging.sms.send, javax.microedition.io.Connector.socket, javax.microedition.io.Connector.file.write, javax.microedition.io.Connector.file.read, javax.microedition.pim.ContactList.read
+MIDlet-Permissions-Opt: javax.microedition.io.Connector.sms, javax.wireless.messaging.sms.send, javax.wireless.messaging.sms.send, javax.microedition.io.Connector.socket, javax.microedition.io.Connector.file.write, javax.microedition.io.Connector.file.read, javax.microedition.pim.ContactList.read
 MIDlet-Vendor: Opera Software ASA
 RIM-COD-SHA1-1: ab cf 28 63 e6 02 19 97 46 83 aa 66 c2 ed ed 47 01 7f 8e 12
 RIM-COD-Size-1: 66784

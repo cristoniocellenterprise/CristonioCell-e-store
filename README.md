@@ -1,13 +1,9 @@
 # CristonioCell e-store
 
-Tienda estática de aplicaciones para BlackBerry y otros dispositivos.
+Tienda estática de aplicaciones para BlackBerry.
 
-## Funciones
+## Opera Mini
 
-- Catálogo responsive con búsqueda, categorías y ordenación.
-- Favoritos persistentes mediante `localStorage`.
-- Modal de detalles y enlaces de descarga oficial en una pestaña nueva.
-- Validación de registros, imagen alternativa y manejo visible de errores.
-- Logo reutilizable en `assets/logo.svg`.
+La aplicación Opera Mini está disponible desde la tarjeta de BlackBerry en `index.html`. El botón **Descargar** enlaza directamente a `assets/minibb.jad`.
 
-La aplicación se puede abrir directamente con `index.html` o publicar como sitio estático de GitHub Pages.
+También puedes abrir `opera-mini.html` para usar una pantalla dedicada de descarga. Desde un BlackBerry, abre esa página en el navegador y pulsa **Descargar para BlackBerry**. El archivo JAD conserva las referencias oficiales a los recursos de Opera Mini.
