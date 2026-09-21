@@ -1,0 +1,31 @@
+File name: minibb.jad
+Language: 
+MIDlet-Version: 4.5
+MIDlet-1: Opera Mini 4, /i.png, Browser
+MIDlet-Description: Opera Mini
+MIDlet-Icon: /i.png
+MIDlet-Info-URL: http://mini.opera.com/
+MIDlet-Install-Notify: http://m.opera.com/n/33868Acuemoth_es-mx?vid=0xc339d72dd84b89f0
+MIDlet-Jar-URL: http://m.opera.com/dl/G2MEQpbr9zds3yf6UHgARS5sKh0AZGVmYXVsdF8yMDEyLnBuZw==/mini.jar?vid=0xc339d72dd84b89f0
+MIDlet-Name: Opera Mini 4
+MIDlet-Permissions: javax.microedition.io.Connector.http
+MIDlet-Permissions-Opt: javax.microedition.io.Connector.sms, javax.wireless.messaging.sms.send, javax.microedition.io.Connector.socket, javax.microedition.io.Connector.file.write, javax.microedition.io.Connector.file.read, javax.microedition.pim.ContactList.read
+MIDlet-Vendor: Opera Software ASA
+RIM-COD-SHA1-1: ab cf 28 63 e6 02 19 97 46 83 aa 66 c2 ed ed 47 01 7f 8e 12
+RIM-COD-Size-1: 66784
+RIM-COD-URL-1: http://m.opera.com/dl/gfOwO0c1QtOpJuuk1RUARS5sKh0AZGVmYXVsdF8yMDEyLnBuZw==/mini.cod?vid=0xc339d72dd84b89f0
+RIM-COD-Creation-Time: 1372176449
+RIM-COD-Module-Dependencies: net_rim_cldc,net_rim_pdap
+RIM-COD-Module-Name: operette4-hifi
+RIM-COD-SHA1: 6b 8b 93 3d b1 a1 05 22 97 26 03 92 a6 e8 9d 74 17 57 1f cf
+RIM-COD-SHA1-2: 03 8f 39 b9 88 69 00 61 ee 54 d2 86 05 67 d7 4d 38 bd ad a3
+RIM-COD-Size: 58232
+RIM-COD-Size-2: 73736
+RIM-COD-URL: http://m.opera.com/dl/9ZLuDrg1xLXy9A5pOvQARS5sKh0AZGVmYXVsdF8yMDEyLnBuZw==/mini.cod?vid=0xc339d72dd84b89f0
+RIM-COD-URL-2: http://m.opera.com/dl/hKiUBcj2Fl-w67KQmR4ARS5sKh0AZGVmYXVsdF8yMDEyLnBuZw==/mini.cod?vid=0xc339d72dd84b89f0
+Content-Folder: Applications
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-2.0
+OM-Install-Referrer: utmcsr=google.com|utmccn=(referral)|utmcmd=referral|utmcct=/|vid=0xc339d72dd84b89f0
+OM-Upgrade: u=A2M4YklEdUmftTZ5iD3TP8RTjvQecxp2bRLnwQ==
+Operette-UA: Nokia100/2.0 (2.0423.0_rc02) SymbianOS/7.0s Series60/2.1 Profile/MIDP-2.0 Configuration/CLDC-1.0
